@@ -12,6 +12,6 @@ We start from our open-source code MESTI, which has implemented the APF method w
 We will expect a significant speed up when we use the APF method with the parallel feature.
  
 ### Reference
-[1] Ho-Chun Lin, Zeyu Wang, and Chia Wei Hsu, "Fast multi-source nanophotonic simulations using augmented partial factorization,"  [arXiv:2205.07887](https://arxiv.org/abs/2205.07887)  (2022).
+[1] Ho-Chun Lin, Zeyu Wang, and Chia Wei Hsu, "Fast multi-source nanophotonic simulations using augmented partial factorization",  [arXiv:2205.07887](https://arxiv.org/abs/2205.07887)  (2022).
  
 [2] MESTI.m. https://github.com/complexphoton/MESTI.m.
