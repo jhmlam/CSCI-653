@@ -37,8 +37,14 @@ $$\bf{K}=\begin{pmatrix}
 
 The partial factorization factorizes the upper-left block into ${\bf{A}} = {\bf{LU}}$, which we do not keep. Instead, we keep matrix ${\bf{H}} = {\bf{D}} - {\bf{C}}{\bf{A}}^{-1}{\bf{B}}$, schur complement of matrix ${\bf{K}}$, which yields the scattering matrix via ${\bf{S}} = -{\bf{H}}$. This method directly computes the entire ${\bf{S}}$, bypassing ${\bf X}$ and without looping over the inputs. We name this approach ''augmented partial factorization'' (APF).
 
-### Simulation methods
-We start from our open-source code [MESTI.m](https://github.com/complexphoton/MESTI.m)[3], which has implemented the APF method with a sequential solver to compute the Schur complement. MESTI.m only deal with 2D system. We want to extend the formalism to full 3D system[4]. Then we will parallelize our APF method by calling the parallel MUMPS solver to compute the Schur complement and get the scattering matrix
+<p align="center">
+ <img src="./img/2d_benchmark.png" width="347.4" height="430.5">
+</p>
+
+The figure shows tha result from our open-source code [MESTI.m](https://github.com/complexphoton/MESTI.m)[3], which has implemented the APF method with a sequential solver to compute the Schur complement.
+
+### Simulation methods 
+MESTI.m only deal with 2D system. We want to extend the formalism to full 3D system[4]. Then we will parallelize our APF method by calling the parallel MUMPS solver to compute the Schur complement and get the scattering matrix
  
 ### Preliminary 3D results
 We compute the scattering matrix of a disordered medium, coupling 1,400 inputs and outputs.
