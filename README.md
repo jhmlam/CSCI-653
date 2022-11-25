@@ -3,11 +3,11 @@
 ### Problem description
 Recently, a new method, [augmented partial factorization (APF)](https://arxiv.org/abs/2205.07887)[1], shows significant efficiency gain when we explore multi-input systems. However, now the APF method just utilizes the ''sequential'' [MUMPS solver](https://mumps-solver.org/index.php), and it constrains the system size we can explore, especially when we consider a fully 3D system. Therefore, we want to have our APF method utilize the ''parallel'' MUMPS solver and its parallelization feature, which enables us to simulate large multi-input systems that have never been studied before.
  
-Actually, the parallel MUMPS solver is already there. The main work for this project is to implement the interface between our MESTI code and the parallel MUMPS solver, and test the parallalization performance. In our 3D MESTI code, we would use JULIA language and call the MUMPS through MUMPS3.jl[2].
+Actually, the parallel MUMPS solver is already there. The main work for this project is to extend the 2D formalism to 3D and implement the interface between our MESTI code and the parallel MUMPS solver, and test the parallalization performance. In our 3D MESTI code, we would use Julia language and call the MUMPS solver through MUMPS3.jl[2].
 
 ### Augmented partial factorization (APF)
-Multi-source linear response of the system can be described in an M′ × M scattering matrix **S**. Given any input
-,written as a vector *v*, the relevant response (can be in any basis) written as a vector *u* through
+Multi-source linear response of the system can be described in an M′ × M scattering matrix $\bf{S}$. Given any input
+,written as a vector $\it{v}$, the relevant response (can be in any basis) written as a vector $\it{u}$ through
 $$u_n = \sum_{m=1}^M S_{nm} v_m$$
 
 <p align="center">
@@ -43,17 +43,16 @@ The partial factorization factorizes the upper-left block into ${\bf{A}} = {\bf{
 
 The figure shows tha result from our open-source code [MESTI.m](https://github.com/complexphoton/MESTI.m)[3], which has implemented the APF method with a sequential solver to compute the Schur complement.
 
-### Simulation methods 
-MESTI.m only deal with 2D system. We want to extend the formalism to full 3D system[4]. Then we will parallelize our APF method by calling the parallel MUMPS solver to compute the Schur complement and get the scattering matrix
+### Simulation methods and preliminary 3D results
+We extend our APF formalism and theory to full 3D system[4]. Then we parallelize our APF method by calling the parallel MUMPS solver to do APF method to get the scattering matrix.
  
-### Preliminary 3D results
 We compute the scattering matrix of a disordered medium, coupling 1,400 inputs and outputs.
 
 <p align="center">
  <img src="./img/preliminary_3D.png" width="811.7" height="443.8">
 </p>
 
-The figure shows the APF computing time with hybrid MPI/OpenMP parallelism. We use pure multithreading when the number of cores used fits within one node, and hybrid MPI/OpenMP with one MPI process per node when the number of cores is greater than 32. The hybrid MPI/multithreading parallelization on 8 nodes reduces the computing time by a factor of 40.
+The figure shows the APF computing time with pure OpenMP or hybrid MPI/OpenMP parallelism. We use pure OpenMP when the number of cores used fits within one node, and hybrid MPI/OpenMP with one MPI process per node when the number of cores is greater than 32. The hybrid MPI/OpenMP parallelization on 8 nodes reduces the computing time by a factor of 40.
 
 Each computation is carried out on one Intel Xeon Gold 6130 node in USC Discovery cluster. 
 
